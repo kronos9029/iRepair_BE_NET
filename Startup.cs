@@ -34,6 +34,11 @@ namespace iRepair_BE_NET
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "iRepair_BE_NET", Version = "v1" });
             });
+
+            services.AddCors(options => 
+                options.AddDefaultPolicy(
+                builder => builder.AllowAnyOrigin()
+            ));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -49,6 +54,8 @@ namespace iRepair_BE_NET
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors();
 
             app.UseAuthorization();
 
