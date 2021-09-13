@@ -1,0 +1,12 @@
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using iRepair_BE_NET.Models;
+
+namespace iRepair_BE_NET.Repositories
+{
+    public interface ITestServices
+    {
+        Task<List<dynamic>> GetAll();
+        public Admin GetById(int id);
+    }
+}

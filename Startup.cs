@@ -1,8 +1,12 @@
 using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 using iRepair_BE_NET.Models;
+using iRepair_BE_NET.Repositories;
+using iRepair_BE_NET.Repositories.Impls;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -13,6 +17,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using Npgsql;
 
 namespace iRepair_BE_NET
 {
@@ -23,11 +28,20 @@ namespace iRepair_BE_NET
             Configuration = configuration;
         }
 
-        public IConfiguration Configuration { get; }
+        public IConfiguration Configuration { get;private set;}
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // Read the connection string from appsettings.
+            string dbConnectionString = this.Configuration.GetConnectionString("DEV");
+
+            // Inject IDbConnection, with implementation from SqlConnection class.
+            services.AddTransient<IDbConnection>((sp) => new NpgsqlConnection(dbConnectionString));
+
+            // Register your regular repositories
+            //services.AddScoped<IDiameterRepository, DiameterRepository>();
+            services.AddScoped<ITestServices, TestServices>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -39,6 +53,8 @@ namespace iRepair_BE_NET
                 options.AddDefaultPolicy(
                 builder => builder.AllowAnyOrigin()
             ));
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
