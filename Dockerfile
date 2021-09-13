@@ -23,4 +23,5 @@ RUN dotnet publish "iRepair_BE_NET.csproj" -c Release -o /app/publish
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "iRepair_BE_NET.dll"]
+#ENTRYPOINT ["dotnet", "iRepair_BE_NET.dll"]
+CMD ASPNETCORE_URLS=http://*:$PORT dotnet iRepair_BE_NET.dll
