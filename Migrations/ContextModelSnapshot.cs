@@ -25,9 +25,6 @@ namespace iRepair_BE_NET.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<string>("fullname")
-                        .HasColumnType("text");
-
                     b.Property<string>("password")
                         .HasColumnType("text");
 
