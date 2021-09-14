@@ -3,7 +3,7 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using Dapper;
-using iRepair_BE_NET.Models;
+using iRepair_BE_NET.Models.Entities;
 
 namespace iRepair_BE_NET.Repositories.Impls
 {
