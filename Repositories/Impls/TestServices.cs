@@ -18,14 +18,14 @@ namespace iRepair_BE_NET.Repositories.Impls
 
         public Admin GetById(int id)
         {
-            const string sql = @"SELECT * FROM Admin WHERE AccountId = @Id";
+            const string sql = @"SELECT * FROM admins WHERE AccountId = @Id";
             return _dbConnection.QueryFirst<Admin>(sql, new { id });
 
         }
 
         public async Task<List<dynamic>> GetAll()
         {
-            const string sql = @"SELECT * FROM admin";
+            const string sql = @"SELECT * FROM admins";
 
             // No need to use using statement. Dapper will automatically
             // open, close and dispose the connection for you.
