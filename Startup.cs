@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
+using iRepair_BE_NET.Helpers;
 using iRepair_BE_NET.Models;
 using iRepair_BE_NET.Repositories;
 using iRepair_BE_NET.Repositories.Impls;
@@ -34,11 +35,12 @@ namespace iRepair_BE_NET
         public void ConfigureServices(IServiceCollection services)
         {
             // Read the connection string from appsettings.
-            string dbConnectionString = this.Configuration.GetConnectionString("PROD");
+            string dbConnectionString = this.Configuration.GetConnectionString("DEV");
 
             // Inject IDbConnection, with implementation from SqlConnection class.
             services.AddTransient<IDbConnection>((sp) => new NpgsqlConnection(dbConnectionString));
-
+            //Register DBcontext for migration
+            services.AddDbContext<Context>(options => options.UseNpgsql(dbConnectionString));
             // Register your regular repositories
             //services.AddScoped<IDiameterRepository, DiameterRepository>();
             services.AddScoped<ITestServices, TestServices>();
