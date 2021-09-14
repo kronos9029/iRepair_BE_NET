@@ -10,7 +10,6 @@ namespace iRepair_BE_NET.Models.Entities
         public Guid accountId{ get; set; }
         public string username{ get; set; }
         public string password{ get; set; }
-        public string fullname{get; set;}
         public RoleEnum role{get; set;}
     }
 }

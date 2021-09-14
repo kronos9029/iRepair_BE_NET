@@ -10,7 +10,7 @@ using iRepair_BE_NET.Helpers;
 namespace iRepair_BE_NET.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20210914183924_initial")]
+    [Migration("20210914190039_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
