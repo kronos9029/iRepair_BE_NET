@@ -29,7 +29,7 @@ namespace iRepair_BE_NET
             Configuration = configuration;
         }
 
-        public IConfiguration Configuration { get;private set;}
+        public IConfiguration Configuration { get; private set; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -39,6 +39,7 @@ namespace iRepair_BE_NET
 
             // Inject IDbConnection, with implementation from SqlConnection class.
             services.AddTransient<IDbConnection>((sp) => new NpgsqlConnection(dbConnectionString));
+
             //Register DBcontext for migration
             services.AddDbContext<Context>(options => options.UseNpgsql(dbConnectionString));
             // Register your regular repositories
@@ -51,24 +52,14 @@ namespace iRepair_BE_NET
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "iRepair_BE_NET", Version = "v1" });
             });
 
-            services.AddCors(options => 
+            services.AddCors(options =>
                 options.AddDefaultPolicy(
                 builder => builder.AllowAnyOrigin()
             ));
 
 
         }
-        private void UpgradeDatabase(IApplicationBuilder app)
-        {
-            using (var serviceScope = app.ApplicationServices.CreateScope())
-            {
-                var context = serviceScope.ServiceProvider.GetService<Context>();
-                if (context != null && context.Database != null)
-                {
-                    context.Database.Migrate();
-                }
-            }
-        }
+
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -95,5 +86,19 @@ namespace iRepair_BE_NET
 
             UpgradeDatabase(app);
         }
+
+        private void UpgradeDatabase(IApplicationBuilder app)
+        {
+            using (var serviceScope = app.ApplicationServices.CreateScope())
+            {
+                var context = serviceScope.ServiceProvider.GetService<Context>();
+                if (context != null && context.Database != null)
+                {
+                    context.Database.Migrate();
+                }
+            }
+        }
+
+
     }
 }

@@ -12,8 +12,9 @@ namespace iRepair_BE_NET.Migrations
                 columns: table => new
                 {
                     accountId = table.Column<Guid>(type: "uuid", nullable: false),
-                    username = table.Column<string>(type: "text", nullable: false),
-                    password = table.Column<string>(type: "text", nullable: false)
+                    username = table.Column<string>(type: "text", nullable: true),
+                    password = table.Column<string>(type: "text", nullable: true),
+                    role = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {

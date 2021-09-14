@@ -10,7 +10,7 @@ using iRepair_BE_NET.Helpers;
 namespace iRepair_BE_NET.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20210914130146_initial")]
+    [Migration("20210914183924_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -29,6 +29,9 @@ namespace iRepair_BE_NET.Migrations
 
                     b.Property<string>("password")
                         .HasColumnType("text");
+
+                    b.Property<int>("role")
+                        .HasColumnType("integer");
 
                     b.Property<string>("username")
                         .HasColumnType("text");
