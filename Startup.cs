@@ -58,6 +58,17 @@ namespace iRepair_BE_NET
 
 
         }
+        private void UpgradeDatabase(IApplicationBuilder app)
+        {
+            using (var serviceScope = app.ApplicationServices.CreateScope())
+            {
+                var context = serviceScope.ServiceProvider.GetService<Context>();
+                if (context != null && context.Database != null)
+                {
+                    context.Database.Migrate();
+                }
+            }
+        }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -81,6 +92,8 @@ namespace iRepair_BE_NET
             {
                 endpoints.MapControllers();
             });
+
+            UpgradeDatabase(app);
         }
     }
 }
