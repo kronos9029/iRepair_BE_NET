@@ -18,7 +18,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
-using Npgsql;
+
 
 namespace iRepair_BE_NET
 {
@@ -38,10 +38,10 @@ namespace iRepair_BE_NET
             string dbConnectionString = this.Configuration.GetConnectionString("DEV");
 
             // Inject IDbConnection, with implementation from SqlConnection class.
-            services.AddTransient<IDbConnection>((sp) => new NpgsqlConnection(dbConnectionString));
+            services.AddTransient<IDbConnection>((sp) => new SqlConnection(dbConnectionString));
 
             //Register DBcontext for migration
-            services.AddDbContext<Context>(options => options.UseNpgsql(dbConnectionString));
+            services.AddDbContext<Context>(options => options.UseSqlServer(dbConnectionString));
             // Register your regular repositories
             //services.AddScoped<IDiameterRepository, DiameterRepository>();
             services.AddScoped<ITestServices, TestServices>();
