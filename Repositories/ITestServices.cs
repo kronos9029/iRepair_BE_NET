@@ -7,6 +7,6 @@ namespace iRepair_BE_NET.Repositories
     public interface ITestServices
     {
         Task<List<dynamic>> GetAll();
-        public Admin GetById(int id);
+        public Account GetById(int id);
     }
 }
