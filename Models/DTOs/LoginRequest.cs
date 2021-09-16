@@ -6,6 +6,7 @@ namespace iRepair_BE_NET.Models.DTOs
     {
         [Required]
         public string username;
+        
         [Required]
         public string password;
     }
