@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using iRepair_BE_NET.Helpers;
 
 namespace iRepair_BE_NET.Migrations
 {
     [DbContext(typeof(iRepair_DEVContext))]
-    partial class iRepair_DEVContextModelSnapshot : ModelSnapshot
+    [Migration("20210919122651_V0.2")]
+    partial class V02
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
