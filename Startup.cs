@@ -5,9 +5,6 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 using iRepair_BE_NET.Helpers;
-using iRepair_BE_NET.Models;
-using iRepair_BE_NET.Repositories;
-using iRepair_BE_NET.Repositories.Impls;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -35,16 +32,15 @@ namespace iRepair_BE_NET
         public void ConfigureServices(IServiceCollection services)
         {
             // Read the connection string from appsettings.
-            string dbConnectionString = this.Configuration.GetConnectionString("PROD");
+            string dbConnectionString = this.Configuration.GetConnectionString("DEV");
 
             // Inject IDbConnection, with implementation from SqlConnection class.
             services.AddTransient<IDbConnection>((sp) => new SqlConnection(dbConnectionString));
 
             //Register DBcontext for migration
-            services.AddDbContext<Context>(options => options.UseSqlServer(dbConnectionString));
+            services.AddDbContext<iRepair_DEVContext>(options => options.UseSqlServer(dbConnectionString));
             // Register your regular repositories
             //services.AddScoped<IDiameterRepository, DiameterRepository>();
-            services.AddScoped<ITestServices, TestServices>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -84,14 +80,14 @@ namespace iRepair_BE_NET
                 endpoints.MapControllers();
             });
 
-            UpgradeDatabase(app);
+            // UpgradeDatabase(app);
         }
 
         private void UpgradeDatabase(IApplicationBuilder app)
         {
             using (var serviceScope = app.ApplicationServices.CreateScope())
             {
-                var context = serviceScope.ServiceProvider.GetService<Context>();
+                var context = serviceScope.ServiceProvider.GetService<iRepair_DEVContext>();
                 if (context != null && context.Database != null)
                 {
                     context.Database.Migrate();
