@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using iRepair_BE_NET.Models.Constants;
 using Microsoft.EntityFrameworkCore;
 
 #nullable disable
@@ -22,10 +23,10 @@ namespace iRepair_BE_NET.Models.Entities
         public string UpdateBy { get; set; }
         [Column("Status_From")]
         [StringLength(50)]
-        public string StatusFrom { get; set; }
+        public StatusEnum StatusFrom { get; set; }
         [Column("Status_To")]
         [StringLength(50)]
-        public string StatusTo { get; set; }
+        public StatusEnum StatusTo { get; set; }
 
         [ForeignKey(nameof(OrderId))]
         [InverseProperty("OrderHistories")]

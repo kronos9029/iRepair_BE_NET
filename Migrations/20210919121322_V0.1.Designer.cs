@@ -10,8 +10,8 @@ using iRepair_BE_NET.Helpers;
 namespace iRepair_BE_NET.Migrations
 {
     [DbContext(typeof(iRepair_DEVContext))]
-    [Migration("20210919104605_V0")]
-    partial class V0
+    [Migration("20210919121322_V0.1")]
+    partial class V01
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -177,35 +177,6 @@ namespace iRepair_BE_NET.Migrations
                     b.ToTable("FavoriteBy");
                 });
 
-            modelBuilder.Entity("iRepair_BE_NET.Models.Entities.FeedBack", b =>
-                {
-                    b.Property<string>("FeedbackMessage")
-                        .HasMaxLength(250)
-                        .HasColumnType("nvarchar(250)")
-                        .HasColumnName("Feedback_Message");
-
-                    b.Property<int?>("FeedbackPoint")
-                        .HasColumnType("int")
-                        .HasColumnName("Feedback_Point");
-
-                    b.Property<Guid>("Id")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("OrderId")
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("Order_Id");
-
-                    b.Property<Guid>("ServiceId")
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("Service_Id");
-
-                    b.HasIndex("OrderId");
-
-                    b.HasIndex("ServiceId");
-
-                    b.ToTable("FeedBack");
-                });
-
             modelBuilder.Entity("iRepair_BE_NET.Models.Entities.LinkedAccount", b =>
                 {
                     b.Property<string>("Account")
@@ -319,6 +290,11 @@ namespace iRepair_BE_NET.Migrations
                         .HasColumnType("uniqueidentifier")
                         .HasColumnName("Service_Id");
 
+                    b.Property<int>("Status")
+                        .HasMaxLength(50)
+                        .HasColumnType("int")
+                        .HasColumnName("Status");
+
                     b.Property<double>("Total")
                         .HasColumnType("float");
 
@@ -359,14 +335,14 @@ namespace iRepair_BE_NET.Migrations
                         .HasColumnType("uniqueidentifier")
                         .HasColumnName("Order_Id");
 
-                    b.Property<string>("StatusFrom")
+                    b.Property<int>("StatusFrom")
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)")
+                        .HasColumnType("int")
                         .HasColumnName("Status_From");
 
-                    b.Property<string>("StatusTo")
+                    b.Property<int>("StatusTo")
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)")
+                        .HasColumnType("int")
                         .HasColumnName("Status_To");
 
                     b.Property<string>("UpdateBy")
@@ -541,25 +517,6 @@ namespace iRepair_BE_NET.Migrations
                     b.Navigation("Customer");
 
                     b.Navigation("Repairman");
-                });
-
-            modelBuilder.Entity("iRepair_BE_NET.Models.Entities.FeedBack", b =>
-                {
-                    b.HasOne("iRepair_BE_NET.Models.Entities.Order", "Order")
-                        .WithMany()
-                        .HasForeignKey("OrderId")
-                        .HasConstraintName("FK_FeedBack_Order")
-                        .IsRequired();
-
-                    b.HasOne("iRepair_BE_NET.Models.Entities.Service", "Service")
-                        .WithMany()
-                        .HasForeignKey("ServiceId")
-                        .HasConstraintName("FK_FeedBack_Service")
-                        .IsRequired();
-
-                    b.Navigation("Order");
-
-                    b.Navigation("Service");
                 });
 
             modelBuilder.Entity("iRepair_BE_NET.Models.Entities.LinkedAccount", b =>

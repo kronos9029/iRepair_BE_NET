@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using iRepair_BE_NET.Helpers;
 
 namespace iRepair_BE_NET.Migrations
 {
     [DbContext(typeof(iRepair_DEVContext))]
-    partial class iRepair_DEVContextModelSnapshot : ModelSnapshot
+    [Migration("20210919121009_V0")]
+    partial class V0
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -173,6 +175,35 @@ namespace iRepair_BE_NET.Migrations
                     b.HasIndex("RepairmanId");
 
                     b.ToTable("FavoriteBy");
+                });
+
+            modelBuilder.Entity("iRepair_BE_NET.Models.Entities.FeedBack", b =>
+                {
+                    b.Property<string>("FeedbackMessage")
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)")
+                        .HasColumnName("Feedback_Message");
+
+                    b.Property<int?>("FeedbackPoint")
+                        .HasColumnType("int")
+                        .HasColumnName("Feedback_Point");
+
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("OrderId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("Order_Id");
+
+                    b.Property<Guid>("ServiceId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("Service_Id");
+
+                    b.HasIndex("OrderId");
+
+                    b.HasIndex("ServiceId");
+
+                    b.ToTable("FeedBack");
                 });
 
             modelBuilder.Entity("iRepair_BE_NET.Models.Entities.LinkedAccount", b =>
@@ -515,6 +546,25 @@ namespace iRepair_BE_NET.Migrations
                     b.Navigation("Customer");
 
                     b.Navigation("Repairman");
+                });
+
+            modelBuilder.Entity("iRepair_BE_NET.Models.Entities.FeedBack", b =>
+                {
+                    b.HasOne("iRepair_BE_NET.Models.Entities.Order", "Order")
+                        .WithMany()
+                        .HasForeignKey("OrderId")
+                        .HasConstraintName("FK_FeedBack_Order")
+                        .IsRequired();
+
+                    b.HasOne("iRepair_BE_NET.Models.Entities.Service", "Service")
+                        .WithMany()
+                        .HasForeignKey("ServiceId")
+                        .HasConstraintName("FK_FeedBack_Service")
+                        .IsRequired();
+
+                    b.Navigation("Order");
+
+                    b.Navigation("Service");
                 });
 
             modelBuilder.Entity("iRepair_BE_NET.Models.Entities.LinkedAccount", b =>

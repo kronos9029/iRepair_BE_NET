@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using iRepair_BE_NET.Models.Constants;
 using Microsoft.EntityFrameworkCore;
 
 #nullable disable
@@ -17,6 +18,6 @@ namespace iRepair_BE_NET.Models.Entities
         public string Password { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public int Role { get; set; }
+        public RoleEnum Role { get; set; }
     }
 }

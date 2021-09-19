@@ -246,7 +246,8 @@ namespace iRepair_BE_NET.Migrations
                     Total = table.Column<double>(type: "float", nullable: false),
                     Customer_Address = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
                     Feedback_Point = table.Column<int>(type: "int", nullable: true),
-                    Feedback_Message = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: true)
+                    Feedback_Message = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: true),
+                    Status = table.Column<int>(type: "int", maxLength: 50, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -348,8 +349,8 @@ namespace iRepair_BE_NET.Migrations
                     Order_Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Update_Time = table.Column<DateTime>(type: "datetime", nullable: true),
                     Update_By = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
-                    Status_From = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
-                    Status_To = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true)
+                    Status_From = table.Column<int>(type: "int", maxLength: 50, nullable: false),
+                    Status_To = table.Column<int>(type: "int", maxLength: 50, nullable: false)
                 },
                 constraints: table =>
                 {

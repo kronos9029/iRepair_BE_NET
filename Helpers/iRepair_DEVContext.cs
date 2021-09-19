@@ -23,7 +23,6 @@ namespace iRepair_BE_NET.Helpers
         public virtual DbSet<Company> Companies { get; set; }
         public virtual DbSet<Customer> Customers { get; set; }
         public virtual DbSet<FavoriteBy> FavoriteBies { get; set; }
-        public virtual DbSet<FeedBack> FeedBacks { get; set; }
         public virtual DbSet<LinkedAccount> LinkedAccounts { get; set; }
         public virtual DbSet<Major> Majors { get; set; }
         public virtual DbSet<MajorField> MajorFields { get; set; }
@@ -89,21 +88,6 @@ namespace iRepair_BE_NET.Helpers
                     .WithMany()
                     .HasForeignKey(d => d.RepairmanId)
                     .HasConstraintName("FK_FavoriteBy_RepairMan");
-            });
-
-            modelBuilder.Entity<FeedBack>(entity =>
-            {
-                entity.HasOne(d => d.Order)
-                    .WithMany()
-                    .HasForeignKey(d => d.OrderId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_FeedBack_Order");
-
-                entity.HasOne(d => d.Service)
-                    .WithMany()
-                    .HasForeignKey(d => d.ServiceId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_FeedBack_Service");
             });
 
             modelBuilder.Entity<LinkedAccount>(entity =>

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using iRepair_BE_NET.Models.Constants;
 using Microsoft.EntityFrameworkCore;
 
 #nullable disable
@@ -38,6 +39,9 @@ namespace iRepair_BE_NET.Models.Entities
         [Column("Feedback_Message")]
         [StringLength(250)]
         public string FeedbackMessage { get; set; }
+        [Column("Status")]
+        [StringLength(50)]
+        public StatusEnum Status { get; set; }
 
         [ForeignKey(nameof(CustomerId))]
         [InverseProperty("Orders")]
