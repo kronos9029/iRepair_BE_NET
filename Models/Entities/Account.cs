@@ -1,20 +1,22 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Text.Json.Serialization;
-using iRepair_BE_NET.Models.Constants;
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
+
+#nullable disable
 
 namespace iRepair_BE_NET.Models.Entities
 {
-    public class Account
+    [Table("Account")]
+    public partial class Account
     {
         [Key]
-        public Guid accountId{ get; set; }
-        public string username{ get; set; }
-        public string password{ get; set; }
-        public string firstName{get; set;}
-        public string lastName{get; set;}
-        public RoleEnum role{get; set;}
-
+        public Guid AccountId { get; set; }
+        public string Username { get; set; }
+        public string Password { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public int Role { get; set; }
     }
 }
