@@ -32,7 +32,7 @@ namespace iRepair_BE_NET
         public void ConfigureServices(IServiceCollection services)
         {
             // Read the connection string from appsettings.
-            string dbConnectionString = this.Configuration.GetConnectionString("PROD");
+            string dbConnectionString = this.Configuration.GetConnectionString("DEV");
 
             // Inject IDbConnection, with implementation from SqlConnection class.
             services.AddTransient<IDbConnection>((sp) => new SqlConnection(dbConnectionString));
